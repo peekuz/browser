@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 13 12:50:54 2018
+
+@author: farhan
+"""
+
+def main(): 
+    #stack()
+    class Stack1:
+         def __init__(self):
+             self.items = []
+    
+         def isEmpty(self):
+             return self.items == []
+    
+         def push(self, item):
+             self.items.append(item)
+    
+         def pop(self):
+             return self.items.pop()
+    
+         def peek(self):
+             return self.items[len(self.items)-1]
+    
+         def size(self):
+             return len(self.items)
+    
+    s1 = Stack1()
+    s2 = Stack1()
+    global flag
+    flag = 0
+    browser()
+    
+def browse():
+    urlin = str(input('type the URL\n'))
+    s1.push(urlin)
+    for i in range(s2.size()):
+        s2.pop()
+
+def goback():
+    if s1.size() == 0:
+        print('cant go back\n')
+    elif flag == 0:
+        poped = s1.pop()
+        pe = s1.peek()
+        print(pe)
+        s2.push(poped)
+    elif flag == 1:
+        poped = s1.pop()
+        print(poped)
+        s2.push(poped)
+
+def forward():
+    if s2.isEmpty() == True:
+        print('cant go forward')
+        flag = 0
+    else:
+        poped2 = s2.pop()
+        print(poped2)
+        s1.push(poped2)
+        flag = 0
+
+
+def view():
+     i = 0
+     print('these are the URL you have searched')
+     k = s1.size()
+     for j in range(1,k-1):
+         v = s1.pop()
+         print(v)
+#        url.append(v)
+         s2.push(v)
+         i = i + 1
+     for k in range (i):
+        x = s2.pop()
+        #s1.push(url[k])
+        s1.push(x)
+     print('\n')
+     
+     
+     
+def browser():
+    flag = 0
+    while (1):
+        print('\n')
+        print('\n')
+        print('')
+        print('type "<" for "BACK" \n' )
+        print('type ">" for "FORWARD" \n')
+        print('type "v" to "VIEW" all URL\n')
+        print('type "u" to enter a URL\n')
+        print('type "E" to Exit\n')
+        x = str(input('enter the input\n'))
+        
+        if x == 'u' or x == 'U':
+            browse()
+            
+        elif x == '<':
+            goback()
+            flag = 1
+        elif x == '>':
+            forward()
+        elif x == 'v' or x == 'V':
+           view()
+        elif x == 'E' or x == 'e':
+            break
+        else:
+            print('invalid input \n')
+
+
+main() 
+
+      
+
+
