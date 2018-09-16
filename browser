@@ -1,51 +1,38 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 13 12:50:54 2018
 
-@author: farhan
-"""
-
-def main(): 
-    #stack()
-    class Stack1:
-         def __init__(self):
-             self.items = []
+#stack for saving urls
+class Stack():
+    def __init__(self):
+        self.items = []
     
-         def isEmpty(self):
-             return self.items == []
+    def isEmpty(self):
+        return self.items == []
     
-         def push(self, item):
-             self.items.append(item)
+    def push(self, item):
+        self.items.append(item)
     
-         def pop(self):
-             return self.items.pop()
+    def pop(self):
+        return self.items.pop()
     
-         def peek(self):
-             return self.items[len(self.items)-1]
+    def peek(self):
+        return self.items[len(self.items)-1]
     
-         def size(self):
-             return len(self.items)
+    def size(self):
+        return len(self.items)
     
-    s1 = Stack1()
-    s2 = Stack1()
-    global flag
-    flag = 0
-    browser()
-    
+#defining the browsing, when we type the url it will goto a stack
 def browse():
     urlin = str(input('type the URL\n'))
     s1.push(urlin)
     for i in range(s2.size()):
         s2.pop()
-
+#here the logic of goback button
 def goback():
-    if s1.size() == 0:
-        print('cant go back\n')
+    if s1.size() == 1:
+        print("can't go back\n")
     elif flag == 0:
         poped = s1.pop()
         pe = s1.peek()
-        print(pe)
+        print(s1.peek())
         s2.push(poped)
     elif flag == 1:
         poped = s1.pop()
@@ -54,7 +41,7 @@ def goback():
 
 def forward():
     if s2.isEmpty() == True:
-        print('cant go forward')
+        print("can't go forward")
         flag = 0
     else:
         poped2 = s2.pop()
@@ -67,20 +54,15 @@ def view():
      i = 0
      print('these are the URL you have searched')
      k = s1.size()
-     for j in range(1,k-1):
+     for j in range(0,k):
          v = s1.pop()
          print(v)
-#        url.append(v)
-         s2.push(v)
+#        s2.push(v)
          i = i + 1
      for k in range (i):
         x = s2.pop()
-        #s1.push(url[k])
         s1.push(x)
      print('\n')
-     
-     
-     
 def browser():
     flag = 0
     while (1):
@@ -110,8 +92,12 @@ def browser():
             print('invalid input \n')
 
 
-main() 
 
       
+s1 = Stack()
+s2 = Stack()
+global flag
+flag = 0
+browser()
 
 
