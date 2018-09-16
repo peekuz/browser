@@ -1,0 +1,45 @@
+""" program to predict the value of house based on number of rooms,number of bathrooms,landsize,building area and year of built using decision tree regression"""
+
+import pandas as pd
+melbourne_data = pd.read_csv('melb_data.csv') 
+# print a summary of the data in Melbourne data
+print(melbourne_data.describe())
+print(melbourne_data.columns)
+
+# store the series of prices separately as melbourne_price_data.
+price = melbourne_data.Price
+# the head command returns the top few lines of data.
+print(price)
+
+melbourne_predictors = ['Rooms', 'Bathroom', 'Landsize','BuildingArea','YearBuilt']
+X = melbourne_data[melbourne_predictors]
+
+from sklearn.preprocessing import Imputer
+imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
+imputer = imputer.fit(X.iloc[:, 2:])
+X.iloc[:, 2:] = imputer.transform(X.iloc[:, 2:])
+
+
+from sklearn.tree import DecisionTreeRegressor
+
+# Define model
+melbourne_model = DecisionTreeRegressor()
+
+# Fit model
+melbourne_model.fit(X, price)
+
+import numpy as np
+list_ =[]
+r = int(input("enter the number of rooms"))
+b = int(input("enter the number of bathrooms"))
+la = int(input("enter the land area in meter square"))
+ba = int(input("enter the bulding area in feets"))
+y = int(input("enter the year of built"))
+list_ =[r,b,la,ba,y]  
+
+list_ = np.array(list_).reshape(1,5)
+pred = melbourne_model.predict(list_)
+print("The value of your House is:{}".format(pred))
+
+
+
